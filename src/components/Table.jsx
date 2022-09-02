@@ -1,20 +1,10 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux/es/exports";
 import "./Table.scss";
 
-const userReducer = (state, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case "FETCH_USER":
-      return payload;
-      break;
-    default:
-      return state;
-  }
-};
-const INITIAL_STATE = [];
-
 const Table = () => {
-  const [state, dispatch] = useReducer(userReducer, INITIAL_STATE);
+  const users = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   useEffect(() => {
     fetchUser();
   }, []);
@@ -44,7 +34,7 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {state.map((item) => (
+          {users.map((item) => (
             <tr>
               <td>{item.id}</td>
               <td>{item.name}</td>
